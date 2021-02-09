@@ -37,7 +37,7 @@ const remove = async  (taskToRemove) => {
   }
 }
 
-const save = async (taskToSave, onlyStatus) => {
+const save = async (taskToSave, onlyStatus = false) => {
   try {
     setProcessing(!onlyStatus);
     setTaskUpdated(null);

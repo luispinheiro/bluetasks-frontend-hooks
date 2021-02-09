@@ -11,7 +11,7 @@ export const useNavBarItems = () => {
 
     const activate = (clickedItem) => {
         if (!clickedItem.active) {
-            setItems(items.map(item => item.name === clickedItem.name ? 
+            setItems(items.map(item => item.name === clickedItem.name ?
                 { ...item, active: true } : { ...item, active: false }));
         }
     }
@@ -22,7 +22,7 @@ export const useNavBarItems = () => {
     ];
 
     if (auth.isAuthenticated()) {
-      items.push({ name: "Logout", active: false, href: "#", onClick: () => { 
+      items.push({ name: "Logout", active: false, href: "#", onClick: () => {
           auth.logout();
           setHelloMessage(null)
       }});
@@ -34,6 +34,6 @@ export const useNavBarItems = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [auth.credentials]);
 
-return { items };
+return { items, helloMessage };
 
 }

@@ -5,7 +5,7 @@ import { AUTH_ENDPOINT, CREDENTIALS_NAME } from "../constants";
 export const AuthContext = createContext();
 
 export const useAuth = () => {
-  const [ credentials, setCredentials ] = useState({ usename: null, displayName : null, token: null });
+  const [ credentials, setCredentials ] = useState({ username: null, displayName : null, token: null });
   const [ error, setError ] = useState(null);
   const [ processing, setProcessing ] = useState(false);
 
@@ -22,7 +22,7 @@ export const useAuth = () => {
         const token = response.headers['authorization'].replace("Bearer ", "");
         storeCredentials(token);
         setProcessing(false);
-    
+
     } catch (error) {
         console.error(error);
         setError("O login não pode ser realizado");
@@ -32,7 +32,7 @@ export const useAuth = () => {
 
   const logout = () => {
     sessionStorage.removeItem(CREDENTIALS_NAME);
-    setCredentials({ usename: null, displayName: null, token: null });
+    setCredentials({ username: null, displayName: null, token: null });
   }
 
   const storeCredentials = (token) => {

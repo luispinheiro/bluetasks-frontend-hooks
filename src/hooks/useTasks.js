@@ -12,6 +12,7 @@ export const useTasks = () => {
   const [processing, setProcessing] = useState(false);
   const [taskRemoved, setTaskRemoved] = useState(null);
   const [taskUpdated, setTaskUpdated] = useState(null);
+  const [taskLoaded, setTaskLoaded] = useState(null);
 
 
   const list = async () => {
@@ -58,12 +59,30 @@ const save = async (taskToSave, onlyStatus = false) => {
   }
 }
 
+const load = async (id) => {
+  try {
+      setProcessing(true);
+      setError(null);
+      setTaskLoaded(null);
+      const response = await axios.get(`${API_ENDPOINT}/tasks/${id}`, buildAuthHeader());
+      setTaskLoaded(response.data);
+      setProcessing(false);
+
+  } catch (error) {
+      handleError(error);
+  }
+}
+
 const clearTaskRemoved = () => {
   setTaskRemoved(null);
 }
 
 const clearTaskUpdated = () => {
   setTaskUpdated(null);
+}
+
+const clearTaskLoaded = () => {
+  setTaskLoaded(null);
 }
 
  const buildAuthHeader = () => {
@@ -87,7 +106,7 @@ const clearTaskUpdated = () => {
     setProcessing(false);
 }
 
-  return { taskList, error, processing, taskRemoved, taskUpdated,
-    list, remove, save, clearTaskRemoved, clearTaskUpdated };
+return { taskList, error, processing, taskRemoved, taskUpdated, taskLoaded,
+  list, remove, save, load, clearTaskRemoved, clearTaskUpdated, clearTaskLoaded };
 
 }
